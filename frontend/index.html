@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FileForge — Convert Anything</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">FileForge</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#supported">Formats</a>
+      <a href="#how">How it works</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <div class="badge">100% Local · No Cloud · Free</div>
+      <h1 class="hero-title">
+        Convert Files<br/>
+        <span class="accent">Instantly.</span>
+      </h1>
+      <p class="hero-sub">Drop any file. Pick a format. Done in seconds.<br/>Your files never leave your machine.</p>
+    </div>
+  </section>
+
+  <main class="converter-wrapper" id="converter">
+    <div class="card">
+
+      <div class="step-label"><span class="step-num">01</span> Upload your file</div>
+
+      <div class="dropzone" id="dropzone">
+        <input type="file" id="fileInput" hidden
+          accept=".pdf,.docx,.pptx,.jpg,.jpeg,.png" />
+        <div class="drop-inner" id="dropInner">
+          <div class="drop-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 32V16M24 16L18 22M24 16L30 22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 36C5.79 36 4 34.21 4 32V12C4 9.79 5.79 8 8 8H40C42.21 8 44 9.79 44 12V32C44 34.21 42.21 36 40 36H8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M4 40H44" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="drop-main">Drag & drop your file here</p>
+          <p class="drop-sub">or</p>
+          <button class="btn-browse">Browse Files</button>
+          <p class="drop-types">PDF · DOCX · PPTX · JPG · PNG</p>
+        </div>
+
+        <div class="file-preview hidden" id="filePreview">
+          <div class="file-icon" id="fileIcon">📄</div>
+          <div class="file-info">
+            <span class="file-name" id="fileName">document.pdf</span>
+            <span class="file-size" id="fileSize">2.4 MB</span>
+          </div>
+          <button class="btn-remove" id="removeFile" title="Remove file">✕</button>
+        </div>
+      </div>
+
+      <div class="step-label"><span class="step-num">02</span> Choose output format</div>
+
+      <div class="format-select-wrap">
+        <select id="conversionSelect" class="format-select" disabled>
+          <option value="">— Upload a file first —</option>
+        </select>
+        <span class="select-arrow">▾</span>
+      </div>
+
+      <div class="step-label"><span class="step-num">03</span> Convert</div>
+
+      <button class="btn-convert" id="convertBtn" disabled>
+        <span class="btn-text">Convert File</span>
+        <span class="btn-arrow">→</span>
+      </button>
+
+      <div class="loading-state hidden" id="loadingState">
+        <div class="spinner"></div>
+        <p class="loading-text" id="loadingText">Converting your file…</p>
+      </div>
+
+      <div class="success-state hidden" id="successState">
+        <div class="success-icon">✓</div>
+        <p class="success-msg">Conversion complete!</p>
+        <button class="btn-download" id="downloadBtn">
+          <span>⬇</span> Download File
+        </button>
+        <button class="btn-reset" id="resetBtn">Convert another file</button>
+      </div>
+
+      <div class="error-state hidden" id="errorState">
+        <div class="error-icon">✕</div>
+        <p class="error-msg" id="errorMsg">Something went wrong. Please try again.</p>
+        <button class="btn-reset" id="errorResetBtn">Try Again</button>
+      </div>
+
+    </div>
+  </main>
+
+  <section class="supported-section" id="supported">
+    <h2 class="section-title">Supported Conversions</h2>
+    <div class="table-wrap">
+      <table class="formats-table">
+        <thead>
+          <tr>
+            <th>From</th><th>To</th><th>Status</th><th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-pdf">PDF</span></td>
+            <td><span class="tag tag-docx">DOCX</span></td>
+            <td><span class="status good">✅ Excellent</span></td>
+            <td>Via pdf2docx</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-docx">DOCX</span></td>
+            <td><span class="tag tag-pdf">PDF</span></td>
+            <td><span class="status ok">⚡ Good</span></td>
+            <td>Requires LibreOffice</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-pptx">PPTX</span></td>
+            <td><span class="tag tag-pdf">PDF</span></td>
+            <td><span class="status ok">⚡ Good</span></td>
+            <td>Requires LibreOffice</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-img">JPG/PNG</span></td>
+            <td><span class="tag tag-pdf">PDF</span></td>
+            <td><span class="status good">✅ Excellent</span></td>
+            <td>Via Pillow</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-docx">DOCX</span></td>
+            <td><span class="tag tag-txt">TXT</span></td>
+            <td><span class="status good">✅ Excellent</span></td>
+            <td>Plain text extraction</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-pdf">PDF</span></td>
+            <td><span class="tag tag-txt">TXT</span></td>
+            <td><span class="status good">✅ Excellent</span></td>
+            <td>Via PyMuPDF</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="how-section" id="how">
+    <h2 class="section-title">How it works</h2>
+    <div class="steps-grid">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <h3>Upload</h3>
+        <p>Drag & drop or browse to select your file.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <h3>Select Format</h3>
+        <p>Choose the target format from the dropdown.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <h3>Convert</h3>
+        <p>File is converted locally using open-source tools.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <h3>Download</h3>
+        <p>Download the converted file instantly.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>⬡ FileForge</span>
+    <span>Powered by FastAPI · pdf2docx · PyMuPDF · Pillow</span>
+    <span>Running locally — your files stay private</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
